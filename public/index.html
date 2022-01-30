@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+
+    <!-- Ensure that everything scales appropriately on a mobile device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    <!-- Let's borrow a cool looking Font from Google -->
+    <link href='https://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+
+
+    <div id="gameArea">
+        <!-- This is where the templates defined below will be used -->
+    </div>
+
+    <!-- Main Title Screen that appears when the page loads for the first time -->
+    <script id="intro-screen-template" type="text/template">
+
+        <div class="titleWrapper">
+
+            <div class="title">
+                TEXT TWIST
+            </div>
+
+            <div class="buttons">
+                <button id="btnCreateGame" class="btn left">CREATE</button>
+                <button id="btnJoinGame" class="btn right">JOIN</button>
+                <div style="clear:both"></div>
+            </div>
+
+        </div>
+
+    </script>
+
+    <!-- This screen appears when a user clicks "CREATE" on the Title Screen -->
+    <script id="create-game-template" type="text/template">
+        <div class="createGameWrapper">
+
+            <div class="createRoom">
+                <div class="info">
+                    <label for="inputPlayerName">Your Name:</label>
+                    <input id="inputPlayerName" type="text" />
+                </div>
+
+                <div class="info config">
+                    <div id="wordLengthLabelContainer">
+                        <label for="wordLength">Word Length:</label>
+                        <span class="range-slider__value" id="wordLengthValue">8</span> <span>Letters</span>
+                    </div>
+                    <div id="wordLengthSliderContainer">
+                        <input type="range" min="5" max="8" step="1" id="wordLength" data-for="wordLengthValue">
+                    </div>
+                    <div id="timeLimitLabelContainer">
+                        <label for="timeLimit">Time Limit:</label>
+                        <span class="range-slider__value" id="timeLimitValue">300</span> <span>Seconds</span>
+                    </div>
+                    <div id="timeLimitTextContainer">
+                        <input type="range" min="30" max="300" step="30" id="timeLimit" data-for="timeLimitValue">
+                    </div>
+                </div>
+
+                <div class="info buttons">
+                    <button id="btnCreateRoom" class="btn">Create Room</button>
+                </div>
+            </div>
+
+            <div class="wait">
+                <div class="info" id="disconnectMsg">Opponent has left the game.</div>
+
+                <div class="info">Wait for the other player to join in your room.</div>
+
+                <div class="info">They can join by entering the following Game ID:</div>
+                <div id="spanNewGameCode" class="gameId">Error!</div>
+
+                <div id="playersWaiting"></div>
+
+                <div class="info buttons">
+                    <button id="btnStart" class="btn">Start Game</button>
+                </div>
+            </div>
+
+        </div>
+    </script>
+
+    <!-- This screen appears when a player clicks "JOIN" on the Title Screen -->
+    <script id="join-game-template" type="text/template">
+        <div class="joinGameWrapper">
+            <div class="info">
+                <label for="inputPlayerName">Your Name:</label>
+                <input id="inputPlayerName" type="text" />
+            </div>
+
+            <div class="info">
+                <label for="inputGameId">Game ID:</label>
+                <input id="inputGameId" type="text" />
+            </div>
+
+            <div class="info buttons">
+                <button id="btnReady" class="btn">Ready</button>
+                <div id="guestWaitingMessage">
+                    <p>Joined Game <span id="gameId"></span>. Please wait for game to begin.</p>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <!-- This is the 'Host' screen. It displays the word for each player to match -->
+    <script id="host-game-template" type="text/template">
+        <div id="wordArea">
+            <div id="hostWord">5</div>
+        </div>
+        <div id="playerScores">
+            <div id="player1Score" class="playerScore">
+                <span class="score">0</span><span class="playerName Host">Player 1</span>
+            </div>
+            <div id="time">
+                <span></span>
+            </div>
+            <div id="player2Score" class="playerScore">
+                <span class="playerName Guest">Player 2</span><span class="score">0</span>
+            </div>
+        </div>
+        <div id="result">
+            <div class="info" id="message"></div>
+            <button class="btn" id="playAgain">Play Again</button>
+        </div>
+    </script>
+
+    <script id="game-board-template" type="text/template">
+        <div id="main">
+            <table id="mainTable">
+                <tbody>
+                    <tr></tr>
+                </tbody>
+            </table>
+            <br/>
+            <table id="shuffledTable">
+                <tbody>
+                    <tr></tr>
+                </tbody>
+            </table>
+            <div id="buttonsDiv">
+                <button class="boardBtn" id="shuffle">Shuffle</button>
+                <button class="boardBtn" id="check">Check</button>
+                <button class="boardBtn" id="recall">Recall</button>
+            </div>
+        </div>
+        <div id="allWords"></div>
+    </script>
+
+    <!-- JavaScript Libraries -->
+
+    <!-- jQuery! -->
+    <script src="libs/jquery-2.0.2.min.js"></script>
+
+    <!-- TextFit resizes text to fill a container.
+        It's used so the titles and game words fit properly on any size screen.
+        https://github.com/STRML/textFit   -->
+    <script src="libs/textFit.min.js"></script>
+
+    <!-- FastClick is used to eliminate the 300ms delay when clicking items on a mobile device
+        https://github.com/ftlabs/fastclick -->
+    <script src="libs/fastclick.js"></script>
+
+    <!-- If Socket.IO is used with Express, then the /socket.io/ path will
+        serve the proper Socket.IO javascript files used by the browser -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- app.js is where all the client-side TextTwist game logic -->
+    <script src="app.js"></script>
+
+</body>
+
+</html>

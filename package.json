@@ -1,0 +1,31 @@
+{
+  "name": "Text-Twist",
+  "version": "0.0.0",
+  "description": "Multiplayer Text-Twist Game",
+  "main": "start.js",
+  "scripts": {
+    "test": "echo 'There is no test! ¯\\_(ツ)_/¯' && exit 0",
+    "start": "node index.js",
+    "debug": "node --inspect index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/anas005/text-twist.git"
+  },
+  "keywords": [
+    "word",
+    "game",
+    "anagram",
+    "text-twist",
+    "multiplayer-game"
+  ],
+  "author": "Anas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anas005/text-twist/issues"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "socket.io": "^2.1.1"
+  }
+}
